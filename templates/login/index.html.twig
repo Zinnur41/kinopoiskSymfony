@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LoginController!{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('login.css', 'css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'header.html.twig' %}
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form action="{{ path('app_login') }}" method="post">
+        <h3 class="text-white">Вход</h3>
+
+        <label for="username">Email</label>
+        <input type="text" id="username" placeholder="Email" name="_username" value="{{ last_username }}"/>
+
+        <label for="password">Пароль</label>
+        <input type="password" placeholder="Пароль" name="_password" id="password">
+
+        <input type="submit" class="submit" value="Войти">
+        <div class="social">
+            <div class="go">Еще не зарегистрированы?</div>
+            <div class="fb"><a href="{{ path('app_registration') }}" class="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover fab fa-facebook">Регистрация</a></div>
+        </div>
+    </form>
+
+{% endblock %}

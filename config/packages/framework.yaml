@@ -8,7 +8,14 @@ framework:
 
     #esi: true
     #fragments: true
-
+    assets:
+        packages:
+            images:
+                base_path: assets/images
+            css:
+                base_path: assets/css
+            js:
+                base_path: assets/js
 when@test:
     framework:
         test: true
