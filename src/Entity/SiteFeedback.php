@@ -2,26 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\FeedbackRepository;
+use App\Repository\SiteFeedbackRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FeedbackRepository::class)]
-class Feedback
+#[ORM\Entity(repositoryClass: SiteFeedbackRepository::class)]
+class SiteFeedback
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'feedback')]
-    private ?User $reviewer = null;
-
-    #[ORM\ManyToOne(inversedBy: 'feedback')]
-    private ?Film $film = null;
-
     #[ORM\Column(length: 255)]
     private ?string $comment = null;
+
+    #[ORM\ManyToOne(inversedBy: 'siteFeedback')]
+    private ?User $reviewer = null;
 
     #[ORM\Column]
     private ?int $score = null;
@@ -34,30 +31,6 @@ class Feedback
         return $this->id;
     }
 
-    public function getReviewer(): ?User
-    {
-        return $this->reviewer;
-    }
-
-    public function setReviewer(?User $reviewer): static
-    {
-        $this->reviewer = $reviewer;
-
-        return $this;
-    }
-
-    public function getFilm(): ?Film
-    {
-        return $this->film;
-    }
-
-    public function setFilm(?Film $film): static
-    {
-        $this->film = $film;
-
-        return $this;
-    }
-
     public function getComment(): ?string
     {
         return $this->comment;
@@ -66,6 +39,18 @@ class Feedback
     public function setComment(string $comment): static
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getReviewer(): ?User
+    {
+        return $this->reviewer;
+    }
+
+    public function setReviewer(?User $reviewer): static
+    {
+        $this->reviewer = $reviewer;
 
         return $this;
     }
@@ -93,5 +78,4 @@ class Feedback
 
         return $this;
     }
-
 }

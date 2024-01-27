@@ -46,9 +46,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: Feedback::class)]
     private Collection $feedback;
 
+    #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: SiteFeedback::class)]
+    private Collection $siteFeedback;
+
     public function __construct()
     {
         $this->feedback = new ArrayCollection();
+        $this->siteFeedback = new ArrayCollection();
     }
 
 
@@ -194,6 +198,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($feedback->getReviewer() === $this) {
                 $feedback->setReviewer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SiteFeedback>
+     */
+    public function getSiteFeedback(): Collection
+    {
+        return $this->siteFeedback;
+    }
+
+    public function addSiteFeedback(SiteFeedback $siteFeedback): static
+    {
+        if (!$this->siteFeedback->contains($siteFeedback)) {
+            $this->siteFeedback->add($siteFeedback);
+            $siteFeedback->setReviewer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSiteFeedback(SiteFeedback $siteFeedback): static
+    {
+        if ($this->siteFeedback->removeElement($siteFeedback)) {
+            // set the owning side to null (unless already changed)
+            if ($siteFeedback->getReviewer() === $this) {
+                $siteFeedback->setReviewer(null);
             }
         }
 
