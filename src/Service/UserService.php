@@ -23,7 +23,7 @@ class UserService
         return $this->entityManager->getRepository(User::class)->findAll();
     }
 
-    public function addUser(array $data)
+    public function addUser(array $data): void
     {
         $user = new User();
 
@@ -40,6 +40,13 @@ class UserService
         $user->setBirthdayDate($data['birthdayDate']);
 
         $this->entityManager->persist($user);
+        $this->entityManager->flush();
+    }
+
+    public function deleteUser(int $id): void
+    {
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        $this->entityManager->remove($user);
         $this->entityManager->flush();
     }
 }

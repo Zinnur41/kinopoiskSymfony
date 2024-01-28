@@ -43,10 +43,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birthdayDate = null;
 
-    #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: Feedback::class)]
+    #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: Feedback::class, orphanRemoval: true)]
     private Collection $feedback;
 
-    #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: SiteFeedback::class)]
+    #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: SiteFeedback::class, orphanRemoval: true)]
     private Collection $siteFeedback;
 
     public function __construct()

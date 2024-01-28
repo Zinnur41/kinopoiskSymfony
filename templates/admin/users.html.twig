@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('adminTable.css', 'css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'adminHeader.html.twig' %}
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>№</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Отчество</th>
+                <th>email</th>
+                <th>Дата рождения</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.secondName }}</td>
+                    <td>{{ user.thirdName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.birthdayDate.format(('d.m.Y')) }}</td>
+                    <td>
+                        <form class="deleteUser" action="{{ path('app_admin_deleteUser', {'id': user.id}) }}" method="post">
+                            <input class="btn btn-danger" type="submit" value="Удалить">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
