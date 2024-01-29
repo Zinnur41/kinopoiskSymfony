@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FilmController!{% endblock %}
+{% block title %} Фильмы {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('filmPage.css', 'css') }}">
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Projects/Symfony/kinopoisk/src/Controller/FilmController.php'|file_link(0) }}">src/Controller/FilmController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Projects/Symfony/kinopoisk/templates/film/users.html.twig'|file_link(0) }}">templates/film/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% include 'header.html.twig' %}
+    <h1>Фильмы</h1>
+    <div class="wrap">
+        {% for film in films %}
+        <div class="box">
+            <div class="box-top">
+                <img class="box-image" src="" alt="error">
+                <div class="title-flex">
+                    <h3 class="box-title">{{ film.name }}</h3>
+                    <p class="user-follow-info">{{ film.rating }}</p>
+                </div>
+                <p class="description">{{ film.description }}</p>
+            </div>
+            <a href="#" class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

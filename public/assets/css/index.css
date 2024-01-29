@@ -131,7 +131,7 @@ input:nth-of-type(5):checked ~ main#carousel {
     position: relative;
     width: 500%;
     font-size: 0;
-    animation: 18s gablok_sedakoda-ani infinite;
+    animation: 12s gablok_sedakoda-ani infinite;
 }
 
 .slayder_karusel figure{
