@@ -20,7 +20,7 @@ final class Version20240127125412 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE feedback ADD score INT NOT NULL');
+        $this->addSql('ALTER TABLE siteFeedback ADD score INT NOT NULL');
         $this->addSql('ALTER TABLE site_feedback ADD score INT NOT NULL');
     }
 
@@ -28,7 +28,7 @@ final class Version20240127125412 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
-        $this->addSql('ALTER TABLE feedback DROP score');
+        $this->addSql('ALTER TABLE siteFeedback DROP score');
         $this->addSql('ALTER TABLE site_feedback DROP score');
     }
 }

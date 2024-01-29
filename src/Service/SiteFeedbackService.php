@@ -8,7 +8,7 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
-class FeedbackService
+class SiteFeedbackService
 {
     private $entityManager;
 
@@ -42,8 +42,9 @@ class FeedbackService
         $this->entityManager->flush();
     }
 
-    public function getAverageRating()
+    public function getAverageScore()
     {
-        //TODO get average rating of website
+        $averageScore = $this->entityManager->getRepository(SiteFeedback::class)->getAverageScore();
+        return round($averageScore, 2);
     }
 }

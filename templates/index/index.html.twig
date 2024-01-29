@@ -3,10 +3,64 @@
 {% block title %}Кинопоиск{% endblock %}
 
 {% block stylesheets %}
-
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('index.css', 'css') }}">
 {% endblock %}
 
 {% block body %}
     {% include 'header.html.twig' %}
-
+    <div class="content">
+        <img src="https://static.tildacdn.com/tild3764-3139-4064-a531-386361333838/_.png">
+        <p class="description">Добро пожаловать на КиноПоиск – ваш идеальный компаньон в мире кинематографа! Здесь вы
+            обнаружите бескрайний океан кинопроизведений, представленных в удобном формате для всех ценителей
+            киноискусства. От последних блокбастеров до независимых шедевров, КиноПоиск собрал для вас самое обширное
+            киноархивное сокровище.</p>
+        <input type="radio" name="position"/>
+        <input type="radio" name="position"/>
+        <input type="radio" name="position" checked/>
+        <input type="radio" name="position"/>
+        <input type="radio" name="position"/>
+        <main id="carousel">
+            <div class="item">
+                <img class="radio-img" src="{{ asset('carousel/img.png', 'images') }}">
+            </div>
+            <div class="item">
+                <img class="radio-img" src="{{ asset('carousel/img_1.png', 'images') }}">
+            </div>
+            <div class="item">
+                <img class="radio-img" src="{{ asset('carousel/img_2.png', 'images') }}">
+            </div>
+            <div class="item">
+                <img class="radio-img" src="{{ asset('carousel/img_3.png', 'images') }}">
+            </div>
+            <div class="item">
+                <img class="radio-img" src="{{ asset('carousel/img_4.png', 'images') }}">
+            </div>
+        </main>
+        <p class="description">
+            Наша миссия – сделать ваш выбор легким и захватывающим. Благодаря уникальным рейтингам, обзорам, и рекомендациям вы сможете легко определиться с тем, что посмотреть в этот вечер. Забудьте о бесконечном поиске – КиноПоиск предлагает вам надежное руководство в мире кино.
+        </p>
+        <div class="slperekhodnik">
+            <aside class="gablok_sedakoda">
+                <div class="slayder_karusel">
+                    <figure><img src="{{ asset('slider/img.png', 'images') }}" alt="">
+                        <figcaption>Ужасы</figcaption>
+                    </figure>
+                    <figure><img src="{{ asset('slider/img_1.png', 'images') }}" alt="">
+                        <figcaption>Боевик</figcaption>
+                    </figure>
+                    <figure><img src="{{ asset('slider/img_2.png', 'images') }}" alt="">
+                        <figcaption>Триллер</figcaption>
+                    </figure>
+                    <figure><img src="{{ asset('slider/img_3.png', 'images') }}" alt="">
+                        <figcaption>Комедия</figcaption>
+                    </figure>
+                    <figure><img src="{{ asset('slider/img_4.png', 'images') }}" alt="">
+                        <figcaption>Фэнтези</figcaption>
+                    </figure>
+                </div>
+            </aside>
+        </div>
+        <p class="description">Оценивайте фильмы, делитесь своими впечатлениями, участвуйте в обсуждениях и открывайте для себя новые жемчужины мирового кинематографа. КиноПоиск – ваш верный компаньон в каждом кинематографическом приключении!</p>
+    </div>
 {% endblock %}

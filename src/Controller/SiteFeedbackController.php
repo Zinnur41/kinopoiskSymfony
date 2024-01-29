@@ -3,17 +3,19 @@
 namespace App\Controller;
 
 use App\Form\SiteFeedbackFormType;
-use App\Service\FeedbackService;
+use App\Service\SiteFeedbackService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FeedbackController extends AbstractController
+class SiteFeedbackController extends AbstractController
 {
     #[Route('/siteFeedback', name: 'app_feedback')]
-    public function index(FeedbackService $feedbackService, Request $request): Response
+    public function index(SiteFeedbackService $feedbackService, Request $request): Response
     {
+        $averageScore = $feedbackService->getAverageScore();
+
         $form = $this->createForm(SiteFeedbackFormType::class);
 
         $form->handleRequest($request);
@@ -26,9 +28,10 @@ class FeedbackController extends AbstractController
 
         $feedbacks = $feedbackService->getAllSiteFeedback();
 
-        return $this->render('feedback/index.html.twig', [
+        return $this->render('siteFeedback/index.html.twig', [
             'feedbacks' => $feedbacks,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'averageScore' => $averageScore
         ]);
     }
 }

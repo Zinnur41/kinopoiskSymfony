@@ -30,6 +30,9 @@ class Film
     #[ORM\OneToMany(mappedBy: 'film', targetEntity: Feedback::class)]
     private Collection $feedback;
 
+    #[ORM\ManyToOne(inversedBy: 'films')]
+    private ?Category $category = null;
+
     public function __construct()
     {
         $this->feedback = new ArrayCollection();
@@ -115,6 +118,18 @@ class Film
                 $feedback->setFilm(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

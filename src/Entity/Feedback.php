@@ -14,10 +14,10 @@ class Feedback
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'feedback')]
+    #[ORM\ManyToOne(inversedBy: 'siteFeedback')]
     private ?User $reviewer = null;
 
-    #[ORM\ManyToOne(inversedBy: 'feedback')]
+    #[ORM\ManyToOne(inversedBy: 'siteFeedback')]
     private ?Film $film = null;
 
     #[ORM\Column(length: 255)]
