@@ -8,8 +8,18 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'header.html.twig' %}
+    {% include 'adminHeader.html.twig' %}
     <h1>Сериалы</h1>
+    <div class="css-modal-details">
+        <details>
+            <summary>Добавить сериал</summary>
+            <div class="cmc">
+                <div class="cmt">
+                    {{ form(form) }}
+                </div>
+            </div>
+        </details>
+    </div>
     <div class="wrap">
         {% for serial in serials %}
             <div class="box">
@@ -21,7 +31,10 @@
                     </div>
                     <p class="description">{{ serial.description }}</p>
                 </div>
-                <a href="#" class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
+                <a href="#" id="read" class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
+                <form action="{{ path('app_admin_deleteSerial', {'id': serial.id}) }}" method="post" >
+                    <input class="button delete-button link-danger link-offset-2 link-underline link-underline-opacity-0" id="delete" type="submit" value="Удалить">
+                </form>
             </div>
         {% endfor %}
     </div>

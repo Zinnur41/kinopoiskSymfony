@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FilmController extends AbstractController
 {
-    #[Route('/film', name: 'app_film')]
+    #[Route('/film', name: 'app_film', methods: 'GET')]
     public function index(FilmService $film): Response
     {
         $films = $film->getAllFilms();

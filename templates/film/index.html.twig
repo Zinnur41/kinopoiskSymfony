@@ -14,10 +14,10 @@
         {% for film in films %}
         <div class="box">
             <div class="box-top">
-                <img class="box-image" src="" alt="error">
+                <img class="box-image" src="{{ asset('uploads/films/' ~ film.image, 'images') }}" alt="error">
                 <div class="title-flex">
                     <h3 class="box-title">{{ film.name }}</h3>
-                    <p class="user-follow-info">{{ film.rating }}</p>
+                    <p class="user-follow-info">Рейтинг: {{ film.rating }} IMDb</p>
                 </div>
                 <p class="description">{{ film.description }}</p>
             </div>

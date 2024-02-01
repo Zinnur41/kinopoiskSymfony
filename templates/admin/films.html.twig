@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Админ {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('filmPage.css', 'css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'adminHeader.html.twig' %}
+    <h1>Фильмы</h1>
+    <div class="css-modal-details">
+        <details>
+            <summary>Добавить фильм</summary>
+            <div class="cmc">
+                <div class="cmt">
+                    {{ form(form) }}
+                </div>
+            </div>
+        </details>
+    </div>
+    <div class="wrap">
+        {% for film in films %}
+            <div class="box">
+                <div class="box-top">
+                    <img class="box-image" src="{{ asset('uploads/films/' ~ film.image, 'images') }}" alt="error">
+                    <div class="title-flex">
+                        <h3 class="box-title">{{ film.name }}</h3>
+                        <p class="user-follow-info">Рейтинг: {{ film.rating }} IMDb</p>
+                    </div>
+                    <p class="description">{{ film.description }}</p>
+                </div>
+                <a href="#" id="read" class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
+                <form action="{{ path('app_admin_deleteFilm', {'id': film.id}) }}" method="post" >
+                    <input class="button delete-button link-danger link-offset-2 link-underline link-underline-opacity-0" id="delete" type="submit" value="Удалить">
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

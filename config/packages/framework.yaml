@@ -16,6 +16,7 @@ framework:
                 base_path: assets/css
             js:
                 base_path: assets/js
+
 when@test:
     framework:
         test: true

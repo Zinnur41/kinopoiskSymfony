@@ -1,4 +1,10 @@
+body {
+    overflow-x: hidden;
+}
 .deleteUser {
     position: relative;
     left: 39px;
+}
+.users {
+    padding: 3px;
 }

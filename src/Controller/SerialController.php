@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SerialController extends AbstractController
 {
-    #[Route('/serial', name: 'app_serial')]
+    #[Route('/serial', name: 'app_serial', methods: 'GET')]
     public function index(FilmService $serial): Response
     {
         $serials = $serial->getAllSerials();
