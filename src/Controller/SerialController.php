@@ -17,4 +17,13 @@ class SerialController extends AbstractController
             'serials' => $serials
         ]);
     }
+
+    #[Route('/serial/{id}', name: 'app_serial_serialDetails', methods: 'GET')]
+    public function serialDetails(int $id, FilmService $serial): Response
+    {
+        $serial = $serial->getFilm($id);
+        return $this->render('serial/serial_details.html.twig', [
+            'serial' => $serial
+        ]);
+    }
 }

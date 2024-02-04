@@ -29,7 +29,9 @@
                         <h3 class="box-title">{{ serial.name }}</h3>
                         <p class="user-follow-info">Рейтинг: {{ serial.rating }} IMDb</p>
                     </div>
-                    <p class="description">{{ serial.description }}</p>
+                    <p class="description">Год выпуска: {{ serial.releaseDate.format('Y') }}</p>
+                    <p class="description">Страна: {{ serial.country }}</p>
+                    <p class="description">Бюджет: {{ serial.budget | number_format(0, ',', ' ')}}$</p>
                 </div>
                 <a href="#" id="read" class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
                 <form action="{{ path('app_admin_deleteSerial', {'id': serial.id}) }}" method="post" >

@@ -68,8 +68,8 @@ a {
     display: flex;
     flex-direction: column;
     position: relative;
-    gap: 12px;
-    margin-bottom: 36px;
+    gap: 10px;
+    margin-bottom: 16px;
 }
 
 .box-image {

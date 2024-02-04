@@ -29,7 +29,9 @@
                         <h3 class="box-title">{{ film.name }}</h3>
                         <p class="user-follow-info">Рейтинг: {{ film.rating }} IMDb</p>
                     </div>
-                    <p class="description">{{ film.description }}</p>
+                    <p class="description">Год выпуска: {{ film.releaseDate.format('Y') }}</p>
+                    <p class="description">Страна: {{ film.country }}</p>
+                    <p class="description">Бюджет: {{ film.budget | number_format(0, ',', ' ')}}$</p>
                 </div>
                 <a href="#" id="read" class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
                 <form action="{{ path('app_admin_deleteFilm', {'id': film.id}) }}" method="post" >

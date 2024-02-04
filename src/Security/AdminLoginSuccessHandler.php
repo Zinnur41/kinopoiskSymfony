@@ -25,7 +25,7 @@ class AdminLoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): ?Response
     {
         if ($this->security->isGranted('ROLE_ADMIN')) {
-            return new RedirectResponse($this->router->generate('app_admin'));
+            return new RedirectResponse($this->router->generate('app_admin_getUsers'));
         }
         return new RedirectResponse($this->router->generate('app_index'));
     }

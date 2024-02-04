@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -33,6 +35,15 @@ class FilmFormType extends AbstractType
                         'maxMessage' => 'Значение должно быть не более {{ limit }}.',
                     ]),
                 ]
+            ])
+            ->add('budget', IntegerType::class, [
+                'label' => 'Бюджет $'
+            ])
+            ->add('country', TextType::class, [
+                'label' => 'Страна'
+            ])
+            ->add('releaseDate', DateType::class, [
+                'label' => 'Дата выхода'
             ])
             ->add('image', FileType::class, [
                 'data_class' => null,

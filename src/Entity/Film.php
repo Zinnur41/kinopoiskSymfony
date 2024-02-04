@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FilmRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -33,6 +34,15 @@ class Film
 
     #[ORM\ManyToOne(inversedBy: 'films')]
     private ?Category $category = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $release_date = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $country = null;
+
+    #[ORM\Column]
+    private ?int $budget = null;
 
     public function __construct()
     {
@@ -131,6 +141,42 @@ class Film
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getReleaseDate(): ?\DateTimeInterface
+    {
+        return $this->release_date;
+    }
+
+    public function setReleaseDate(\DateTimeInterface $release_date): static
+    {
+        $this->release_date = $release_date;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): static
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getBudget(): ?int
+    {
+        return $this->budget;
+    }
+
+    public function setBudget(int $budget): static
+    {
+        $this->budget = $budget;
 
         return $this;
     }
