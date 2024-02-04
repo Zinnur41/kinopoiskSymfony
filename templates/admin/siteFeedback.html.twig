@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Отзывы{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('siteFeedback.css', 'css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'headers/adminHeader.html.twig' %}
+    <div class="feedback">
+        <h1>Отзывы</h1>
+        <h2>Рейтинг: ⭐{{ averageScore }}⭐</h2>
+        <div class="review">
+            {% for feedback in feedbacks %}
+                <figure class="snip1533">
+                    <figcaption>
+                        <blockquote>
+                            <p>{{ feedback.date.format('d M Y H:i') }}</p>
+                        </blockquote>
+                        <h3>{{ feedback.reviewer.firstName }} {{ feedback.reviewer.secondName }}</h3>
+                        <h4>{{ feedback.comment }}</h4>
+                        <h3 class="score">{{ feedback.score }}⭐</h3>
+                    </figcaption>
+                    <form class="deleteFeedback" action="{{ path('app_admin_deletesitefeedback', {'id': feedback.id}) }}" method="post">
+                        <input class="btn btn-outline-danger" type="submit" value="Удалить">
+                    </form>
+                </figure>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

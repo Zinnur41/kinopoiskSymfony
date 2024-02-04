@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\FilmFormType;
 use App\Service\FilmService;
+use App\Service\SiteFeedbackService;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,5 +98,27 @@ class AdminController extends AbstractController
     {
         $film->deleteFilmOrSerial($id);
         return $this->redirectToRoute('app_admin_addSerial');
+    }
+
+
+    #[Route('/admin/siteFeedback', name: 'app_admin_getSiteFeedbacks', methods: 'GET')]
+    public function getSiteFeedbacks(SiteFeedbackService $feedbackService): Response
+    {
+        $averageScore = $feedbackService->getAverageScore();
+
+        $feedbacks = $feedbackService->getAllSiteFeedback();
+
+        return $this->render('admin/siteFeedback.html.twig', [
+            'feedbacks' => $feedbacks,
+            'averageScore' => $averageScore
+        ]);
+    }
+
+    #[Route('/admin/siteFeedback/delete/{id}')]
+    public function deleteSiteFeedback(SiteFeedbackService $feedbackService, int $id): Response
+    {
+        $feedbackService->deleteSiteFeedback($id);
+
+        return $this->redirectToRoute('app_admin_getSiteFeedbacks');
     }
 }

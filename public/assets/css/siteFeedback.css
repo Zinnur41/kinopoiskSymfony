@@ -26,7 +26,7 @@
 }
 
 .snip1533 figcaption {
-    padding: 13% 10% 12%;
+    padding: 13% 10% 15%;
 }
 
 .snip1533 figcaption:before {
@@ -99,4 +99,11 @@
 }
 .blockedFeedback {
     padding: 10px;
+}
+
+.deleteFeedback {
+    position: absolute;
+    bottom: 0;
+    right: 34%;
+    padding: 5px;
 }

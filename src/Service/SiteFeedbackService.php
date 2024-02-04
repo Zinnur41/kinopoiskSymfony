@@ -47,4 +47,11 @@ class SiteFeedbackService
         $averageScore = $this->entityManager->getRepository(SiteFeedback::class)->getAverageScore();
         return round($averageScore, 2);
     }
+
+    public function deleteSiteFeedback(int $id): void
+    {
+        $siteFeedback = $this->entityManager->getRepository(SiteFeedback::class)->find($id);
+        $this->entityManager->remove($siteFeedback);
+        $this->entityManager->flush();
+    }
 }
