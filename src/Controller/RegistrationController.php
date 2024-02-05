@@ -6,6 +6,7 @@ use App\Form\RegistrationFormType;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,13 +19,15 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class);
 
         $form->handleRequest($request);
+        if ($request->isXmlHttpRequest()) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+                $userService->addUser($data);
+                return new JsonResponse(['success' => true]);
+            }
+            return new JsonResponse(['success' => false]);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $userService->addUser($data);
-            return $this->redirectToRoute('app_index');
         }
-
         return $this->render('registration/index.html.twig', [
             'form' => $form->createView(),
         ]);
