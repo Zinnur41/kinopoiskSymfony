@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ serial.name }} {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('cardDescription.css', 'css') }}"
+{% endblock %}
+
+{% block body %}
+    {% include 'headers/adminHeader.html.twig' %}
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ asset('uploads/serials/' ~ serial.image, 'images') }}" class="image img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ serial.name }}</h5>
+                    <p class="card-text">{{ serial.description }}</p>
+                    <p class="card-text">Год выхода: {{ serial.releaseDate.format('Y') }}</p>
+                    <p class="card-text">Страна: {{ serial.country }}</p>
+                    <p class="card-text">Бюджет: {{ serial.budget | number_format(0, ',', ' ') }}$</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
