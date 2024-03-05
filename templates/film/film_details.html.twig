@@ -13,12 +13,17 @@
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="{{ asset('uploads/films/' ~ film.image, 'images') }}" class="image img-fluid rounded-start" alt="...">
+                <form>
+                    <button type="submit" class="favourites glow-on-hover">Добавить в избранное</button>
+                </form>
             </div>
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">{{ film.name }}</h5>
                     <p class="card-text">{{ film.description }}</p>
-                    <p class="card-text"><small class="text-muted"></small></p>
+                    <p class="card-text">Год выхода: {{ film.releaseDate.format('Y') }}</p>
+                    <p class="card-text">Страна: {{ film.country }}</p>
+                    <p class="card-text">Бюджет: {{ film.budget | number_format(0, ',', ' ') }}$</p>
                 </div>
             </div>
         </div>

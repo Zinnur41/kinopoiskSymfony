@@ -51,9 +51,29 @@ class AdminController extends AbstractController
         }
 
         $films = $film->getAllFilms();
-        return $this->render('admin/films.html.twig', [
+        return $this->render('admin/film/films.html.twig', [
             'films' => $films,
             'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/admin/film/{id}', name: 'app_admin_filmDetails', methods: 'GET')]
+    public function filmDetails(int $id, FilmService $filmService): Response
+    {
+        $film = $filmService->getFilm($id);
+
+        return $this->render('admin/film/film_details.html.twig', [
+            'film' => $film
+        ]);
+    }
+
+    #[Route('/admin/serial/{id}', name: 'app_admin_serialDetails', methods: 'GET')]
+    public function serialDetails(int $id, FilmService $filmService): Response
+    {
+        $serial = $filmService->getFilm($id);
+
+        return $this->render('admin/serial/serial_details.html.twig', [
+            'serial' => $serial
         ]);
     }
 
@@ -80,7 +100,7 @@ class AdminController extends AbstractController
         }
 
         $serials = $serial->getAllSerials();
-        return $this->render('admin/serials.html.twig', [
+        return $this->render('admin/serial/serials.html.twig', [
             'serials' => $serials,
             'form' => $form->createView()
         ]);
