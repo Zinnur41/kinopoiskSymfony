@@ -44,9 +44,13 @@ class Film
     #[ORM\Column]
     private ?int $budget = null;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favoriteFilms')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->feedback = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
 
@@ -177,6 +181,33 @@ class Film
     public function setBudget(int $budget): static
     {
         $this->budget = $budget;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addFavoriteFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeFavoriteFilm($this);
+        }
 
         return $this;
     }

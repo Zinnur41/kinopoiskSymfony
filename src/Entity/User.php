@@ -49,10 +49,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'reviewer', targetEntity: SiteFeedback::class, orphanRemoval: true)]
     private Collection $siteFeedback;
 
+    #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'users')]
+    private Collection $favoriteFilms;
+
     public function __construct()
     {
         $this->feedback = new ArrayCollection();
         $this->siteFeedback = new ArrayCollection();
+        $this->favoriteFilms = new ArrayCollection();
     }
 
 
@@ -230,6 +234,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $siteFeedback->setReviewer(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getFavoriteFilms(): Collection
+    {
+        return $this->favoriteFilms;
+    }
+
+    public function addFavoriteFilm(Film $favoriteFilm): static
+    {
+        if (!$this->favoriteFilms->contains($favoriteFilm)) {
+            $this->favoriteFilms->add($favoriteFilm);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteFilm(Film $favoriteFilm): static
+    {
+        $this->favoriteFilms->removeElement($favoriteFilm);
 
         return $this;
     }
