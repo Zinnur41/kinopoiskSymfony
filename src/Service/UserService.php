@@ -2,8 +2,10 @@
 
 namespace App\Service;
 
+use App\Entity\Film;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserService
@@ -12,10 +14,13 @@ class UserService
 
     private $hasher;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher)
+    private $security;
+
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher, Security $security)
     {
         $this->entityManager = $entityManager;
         $this->hasher = $hasher;
+        $this->security = $security;
     }
 
     public function getAllUsers(): array
@@ -47,6 +52,15 @@ class UserService
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);
         $this->entityManager->remove($user);
+        $this->entityManager->flush();
+    }
+
+    public function addFavoriteFilm(Film $film): void
+    {
+        $userIdentifier = $this->security->getUser()->getUserIdentifier();
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $userIdentifier]);
+
+        $user->addFavoriteFilm($film);
         $this->entityManager->flush();
     }
 }

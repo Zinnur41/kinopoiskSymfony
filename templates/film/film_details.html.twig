@@ -13,9 +13,11 @@
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="{{ asset('uploads/films/' ~ film.image, 'images') }}" class="image img-fluid rounded-start" alt="...">
-                <form>
+                {% if is_granted('ROLE_USER') %}
+                <form action="{{ path('app_film_filmDetails', {'id': film.id}) }}" method="post">
                     <button type="submit" class="favourites glow-on-hover">Добавить в избранное</button>
                 </form>
+                {% endif %}
             </div>
             <div class="col-md-8">
                 <div class="card-body">
