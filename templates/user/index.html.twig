@@ -2,7 +2,29 @@
 
 {% block title %} Аккаунт {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('filmPage.css', 'css') }}">
+{% endblock %}
+
 {% block body %}
     {% include 'headers/header.html.twig' %}
-
+    <h1>Избранное</h1>
+    <div class="wrap">
+        {% for film in user.getFavoriteFilms %}
+            <div class="box">
+                <div class="box-top">
+                    <img class="box-image" src="{{ asset('uploads/' ~ film.category.category ~ '/' ~ film.image, 'images') }}" alt="error">
+                    <div class="title-flex">
+                        <h3 class="box-title">{{ film.name }}</h3>
+                        <p class="user-follow-info">Рейтинг: {{ film.rating }} IMDb</p>
+                    </div>
+                </div>
+                {% if film.category.category == 'films' %}
+                    <a href="{{ path('app_film_filmDetails', { id: film.id }) }}" id="read" class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
+                {% else %}
+                    <a href="{{ path('app_serial_serialDetails', { id: film.id }) }}" id="read" class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

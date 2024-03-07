@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserService
 {
@@ -26,6 +27,11 @@ class UserService
     public function getAllUsers(): array
     {
         return $this->entityManager->getRepository(User::class)->findAll();
+    }
+
+    public function getActiveUser(): UserInterface
+    {
+        return $this->security->getUser();
     }
 
     public function addUser(array $data): void
@@ -57,8 +63,7 @@ class UserService
 
     public function addFavoriteFilm(Film $film): void
     {
-        $userIdentifier = $this->security->getUser()->getUserIdentifier();
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $userIdentifier]);
+        $user = $this->getActiveUser();
 
         $user->addFavoriteFilm($film);
         $this->entityManager->flush();
