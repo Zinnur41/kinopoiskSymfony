@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Entity\Category;
 use App\Entity\Film;
+use App\Entity\Genre;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class FilmService
@@ -60,17 +62,25 @@ class FilmService
         $this->entityManager->flush();
     }
 
-    public function addFilm(array $data, $image): void
+    public function addFilm(array $data, $image, ArrayCollection $genres): void
     {
         $film = new Film();
+        foreach ($genres as $genre) {
+            $film->addGenre($genre);
+        }
+
         $category = $this->entityManager->getRepository(Category::class)->find(1); // Категория фильмов
 
         $this->extracted($film, $data, $category, $image);
     }
 
-    public function addSerial(array $data, $image): void
+    public function addSerial(array $data, $image, ArrayCollection $genres): void
     {
         $film = new Film();
+        foreach ($genres as $genre) {
+            $film->addGenre($genre);
+        }
+
         $category = $this->entityManager->getRepository(Category::class)->find(2); // Категория сериалов
 
         $this->extracted($film, $data, $category, $image);

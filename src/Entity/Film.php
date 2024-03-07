@@ -47,10 +47,14 @@ class Film
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favoriteFilms')]
     private Collection $users;
 
+    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'films')]
+    private Collection $genre;
+
     public function __construct()
     {
         $this->feedback = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->genre = new ArrayCollection();
     }
 
 
@@ -208,6 +212,30 @@ class Film
         if ($this->users->removeElement($user)) {
             $user->removeFavoriteFilm($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Genre>
+     */
+    public function getGenre(): Collection
+    {
+        return $this->genre;
+    }
+
+    public function addGenre(Genre $genre): static
+    {
+        if (!$this->genre->contains($genre)) {
+            $this->genre->add($genre);
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genre $genre): static
+    {
+        $this->genre->removeElement($genre);
 
         return $this;
     }

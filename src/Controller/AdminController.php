@@ -37,6 +37,7 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('image')->getData();
+            $genre = $form->get('genre')->getData();
             $data = $form->getData();
 
             if ($imageFile) {
@@ -45,7 +46,7 @@ class AdminController extends AbstractController
                     $this->getParameter('filmImagesDirectory'),
                     $imageName
                 );
-                $film->addFilm($data, $imageName);
+                $film->addFilm($data, $imageName, $genre);
                 return $this->redirectToRoute('app_admin_addFilm');
              }
         }
@@ -87,6 +88,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $imageFile = $form->get('image')->getData();
+            $genre = $form->get('genre')->getData();
 
             if($imageFile) {
                 $imageName = uniqid() . '.' . $imageFile->guessExtension();
@@ -94,7 +96,7 @@ class AdminController extends AbstractController
                     $this->getParameter('serialImagesDirectory'),
                     $imageName
                 );
-                $serial->addSerial($data, $imageName);
+                $serial->addSerial($data, $imageName, $genre);
                 return $this->redirectToRoute('app_admin_addSerial');
             }
         }

@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Genre;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -35,6 +37,13 @@ class FilmFormType extends AbstractType
                         'maxMessage' => 'Значение должно быть не более {{ limit }}.',
                     ]),
                 ]
+            ])
+            ->add('genre', EntityType::class, [
+                'label' => 'Жанр',
+                'class' => Genre::class,
+                'choice_label' => 'genre',
+                'multiple' => true,
+                'expanded' => true
             ])
             ->add('budget', IntegerType::class, [
                 'label' => 'Бюджет $'

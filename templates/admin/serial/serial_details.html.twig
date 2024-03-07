@@ -21,6 +21,12 @@
                     <p class="card-text">Год выхода: {{ serial.releaseDate.format('Y') }}</p>
                     <p class="card-text">Страна: {{ serial.country }}</p>
                     <p class="card-text">Бюджет: {{ serial.budget | number_format(0, ',', ' ') }}$</p>
+                    <p class="card-text">Жанр:
+                        {% for genre in serial.genre %}
+                            {{ genre.genre }}
+                            {{ not loop.last ? ',' }}
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
         </div>

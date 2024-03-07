@@ -21,6 +21,12 @@
                     <p class="card-text">Год выхода: {{ film.releaseDate.format('Y') }}</p>
                     <p class="card-text">Страна: {{ film.country }}</p>
                     <p class="card-text">Бюджет: {{ film.budget | number_format(0, ',', ' ') }}$</p>
+                    <p class="card-text">Жанр:
+                        {% for genre in film.genre %}
+                            {{ genre.genre }}
+                            {{ not loop.last ? ',' }}
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
         </div>
