@@ -68,4 +68,13 @@ class UserService
         $user->addFavoriteFilm($film);
         $this->entityManager->flush();
     }
+
+    public function deleteFavoriteFilm(int $id): void
+    {
+        $user = $this->getActiveUser();
+        $film = $this->entityManager->getRepository(Film::class)->find($id);
+
+        $user->removeFavoriteFilm($film);
+        $this->entityManager->flush();
+    }
 }

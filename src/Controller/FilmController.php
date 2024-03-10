@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Form\FavoriteFilmFormType;
 use App\Service\FilmService;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,13 +21,13 @@ class FilmController extends AbstractController
     }
 
     #[Route('/film/{id}', name: 'app_film_filmDetails')]
-    public function filmDetails(int $id, FilmService $film, UserService $userService, Request $request): Response
+    public function filmDetails(int $id, FilmService $filmService, UserService $userService, Request $request): Response
     {
-        $film = $film->getFilm($id);
+        $film = $filmService->getFilm($id);
 
         if ($request->isMethod('POST')) {
             $userService->addFavoriteFilm($film);
-            return $this->redirectToRoute('app_film_filmDetails', ['id' => $id]);
+            return $this->redirectToRoute('app_user');
         }
 
         return $this->render('film/film_details.html.twig', [

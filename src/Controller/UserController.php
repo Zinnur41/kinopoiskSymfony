@@ -17,4 +17,11 @@ class UserController extends AbstractController
             'user' => $user
         ]);
     }
+
+    #[Route('/user/deleteFavoriteFilm/{id}', name: 'app_user_deleteFavoriteFilm', methods: 'POST')]
+    public function deleteFavoriteFilm(UserService $userService, int $id): Response
+    {
+        $userService->deleteFavoriteFilm($id);
+        return $this->redirectToRoute('app_user');
+    }
 }
