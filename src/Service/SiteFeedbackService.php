@@ -42,7 +42,7 @@ class SiteFeedbackService
         $this->entityManager->flush();
     }
 
-    public function getAverageScore()
+    public function getAverageScore(): int|float|null
     {
         $averageScore = $this->entityManager->getRepository(SiteFeedback::class)->getAverageScore();
         return round($averageScore, 2);

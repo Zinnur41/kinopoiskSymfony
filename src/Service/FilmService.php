@@ -3,18 +3,22 @@
 namespace App\Service;
 
 use App\Entity\Category;
+use App\Entity\Feedback;
 use App\Entity\Film;
 use App\Entity\Genre;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class FilmService
 {
     private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    private $security;
+    public function __construct(EntityManagerInterface $entityManager, Security $security)
     {
         $this->entityManager = $entityManager;
+        $this->security = $security;
     }
 
     public function getAllFilms(): array
@@ -84,5 +88,29 @@ class FilmService
         $category = $this->entityManager->getRepository(Category::class)->find(2); // Категория сериалов
 
         $this->extracted($film, $data, $category, $image);
+    }
+
+    public function addFeedback(int $id, array $data): void
+    {
+        $film = $this->getFilm($id);
+        $user = $this->security->getUser();
+
+        $feedback = new Feedback();
+
+        $feedback->setFilm($film);
+        $feedback->setScore($data['rating']);
+        $feedback->setComment($data['comment']);
+        $feedback->setReviewer($user);
+        date_default_timezone_set('Europe/Moscow');
+        $date = new DateTime('now');
+        $feedback->setDate($date);
+
+        $this->entityManager->persist($feedback);
+        $this->entityManager->flush();
+    }
+
+    public function getFilmAverageScore(Film $film): int|float|null
+    {
+        return $this->entityManager->getRepository(Feedback::class)->getFilmAverageScore($film);
     }
 }

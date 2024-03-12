@@ -12,17 +12,20 @@
     <div class="card">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="{{ asset('uploads/films/' ~ film.image, 'images') }}" class="image img-fluid rounded-start" alt="...">
+                <img src="{{ asset('uploads/films/' ~ film.image, 'images') }}" class="image img-fluid rounded-start"
+                     alt="...">
                 {% if is_granted('ROLE_USER') %}
-                <form action="{{ path('app_film_filmDetails', {'id': film.id}) }}" method="post">
-                    <button type="submit" class="favourites glow-on-hover">Добавить в избранное</button>
-                </form>
+                    <form action="{{ path('app_film_filmDetails', {'id': film.id}) }}" method="post">
+                        <input type="hidden" name="addFavoriteFilm">
+                        <button type="submit" class="favourites glow-on-hover">Добавить в избранное</button>
+                    </form>
                 {% endif %}
             </div>
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">{{ film.name }}</h5>
                     <p class="card-text">{{ film.description }}</p>
+                    <h4>Рейтинг фильма: {{ score | number_format(2) }}</h4>
                     <p class="card-text">Год выхода: {{ film.releaseDate.format('Y') }}</p>
                     <p class="card-text">Страна: {{ film.country }}</p>
                     <p class="card-text">Бюджет: {{ film.budget | number_format(0, ',', ' ') }}$</p>
@@ -34,6 +37,34 @@
                     </p>
                 </div>
             </div>
+            {% if film.feedback is not empty %}
+                <div class="reviews">
+                    <h2>Рецензии зрителей</h2>
+                    {% for feedback in film.feedback %}
+                        {{ feedback.comment }}
+                        {{ feedback.reviewer.firstName }}
+                        {{ feedback.date | date('d M Y в H:i') }}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h2>Рецензий еще нет. Будьте первым!</h2>
+            {% endif %}
+            {% if is_granted('ROLE_USER') %}
+            <h3>Написать рецензию</h3>
+            <form action="{{ path('app_film_filmDetails', {'id': film.id}) }}" method="post">
+                <input type="hidden" name="feedback">
+                <div class="rating-area">
+                    {% for i in 10..1 %}
+                        <input type="radio" id="star-{{ i }}" name="rating" value="{{ i }}">
+                        <label for="star-{{ i }}" title="Оценка «{{ i }}»"></label>
+                    {% endfor %}
+                    <textarea name="comment"></textarea>
+                    <button type="submit" class="favourites glow-on-hover">Оставить рецензию</button>
+                </div>
+            </form>
+            {% else %}
+                <h5 class="blockedFeedback">Чтобы оставить рецензию необходимо <a class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ path('app_login') }}">авторизоваться</a></h5>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

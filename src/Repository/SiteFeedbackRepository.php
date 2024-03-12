@@ -27,7 +27,7 @@ class SiteFeedbackRepository extends ServiceEntityRepository
      * @throws NonUniqueResultException
      * @throws NoResultException
      */
-    public function getAverageScore(): float|bool|int|string|null
+    public function getAverageScore(): float|int|null
     {
         return $this->createQueryBuilder('sf')
             ->select('AVG(sf.score)')
