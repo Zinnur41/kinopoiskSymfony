@@ -78,7 +78,7 @@ h2 {
 }
 .rating-area {
     text-align: center;
-    width: 455px;
+    width: 420px;
     margin: 0 auto;
 }
 .rating-area:not(:checked) > input {
@@ -127,7 +127,7 @@ h2 {
  h3 {
      text-align: center;
  }
- h5 {
+ .blockedFeedback {
      text-align: center;
  }
 

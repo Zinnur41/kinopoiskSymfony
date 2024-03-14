@@ -23,9 +23,9 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">{{ film.name }}</h5>
+                    <h4 class="card-title">{{ film.name }}</h4>
                     <p class="card-text">{{ film.description }}</p>
-                    <h4>Рейтинг фильма: {{ score | number_format(2) }}</h4>
+                    <h5>Рейтинг фильма: {{ score | number_format(2) }}</h5>
                     <p class="card-text">Год выхода: {{ film.releaseDate.format('Y') }}</p>
                     <p class="card-text">Страна: {{ film.country }}</p>
                     <p class="card-text">Бюджет: {{ film.budget | number_format(0, ',', ' ') }}$</p>

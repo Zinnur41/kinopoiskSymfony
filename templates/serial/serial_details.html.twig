@@ -23,9 +23,9 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">{{ serial.name }}</h5>
+                    <h4 class="card-title">{{ serial.name }}</h4>
                     <p class="card-text">{{ serial.description }}</p>
-                    <h4>Рейтинг сериала: {{ score | number_format(2) }}</h4>
+                    <h5>Рейтинг сериала: {{ score | number_format(2) }}</h5>
                     <p class="card-text">Год выхода: {{ serial.releaseDate.format('Y') }}</p>
                     <p class="card-text">Страна: {{ serial.country }}</p>
                     <p class="card-text">Бюджет: {{ serial.budget | number_format(0, ',', ' ') }}$</p>
