@@ -13,15 +13,15 @@
         <h1>Отзывы</h1>
         <h2>Рейтинг: ⭐{{ averageScore }}⭐</h2>
         <div class="review">
-        {% for feedback in feedbacks %}
+        {% for siteFeedback in siteFeedbacks %}
         <figure class="snip1533">
             <figcaption>
                 <blockquote>
-                    <p>{{ feedback.date.format('d M Y H:i') }}</p>
+                    <p>{{ siteFeedback.date.format('d M Y H:i') }}</p>
                 </blockquote>
-                <h3>{{ feedback.reviewer.firstName }} {{ feedback.reviewer.secondName }}</h3>
-                <h4>{{ feedback.comment }}</h4>
-                <h3 class="score">{{ feedback.score }}⭐</h3>
+                <h3>{{ siteFeedback.reviewer.firstName }} {{ siteFeedback.reviewer.secondName }}</h3>
+                <h4>{{ siteFeedback.comment }}</h4>
+                <h3 class="score">{{ siteFeedback.score }}⭐</h3>
             </figcaption>
         </figure>
         {% endfor %}

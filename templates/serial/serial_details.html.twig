@@ -41,9 +41,16 @@
                 <div class="reviews">
                     <h2>Рецензии зрителей</h2>
                     {% for feedback in serial.feedback %}
-                        {{ feedback.comment }}
-                        {{ feedback.reviewer.firstName }}
-                        {{ feedback.date | date('d M Y в H:i') }}
+                        <figure class="snip1533">
+                            <figcaption>
+                                <blockquote>
+                                    <p>{{ feedback.date | date('d M Y в H:i') }}</p>
+                                </blockquote>
+                                <h3>{{ feedback.reviewer.firstName }} {{ feedback.reviewer.secondName }}</h3>
+                                <h4>{{ feedback.comment }}</h4>
+                                <h3 class="score">{{ feedback.score }}/10⭐</h3>
+                            </figcaption>
+                        </figure>
                     {% endfor %}
                 </div>
             {% else %}

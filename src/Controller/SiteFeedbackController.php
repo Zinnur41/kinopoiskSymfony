@@ -12,9 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class SiteFeedbackController extends AbstractController
 {
     #[Route('/siteFeedback', name: 'app_feedback')]
-    public function index(SiteFeedbackService $feedbackService, Request $request): Response
+    public function index(SiteFeedbackService $siteFeedbackService, Request $request): Response
     {
-        $averageScore = $feedbackService->getAverageScore();
+        $averageScore = $siteFeedbackService->getAverageScore();
 
         $form = $this->createForm(SiteFeedbackFormType::class);
 
@@ -22,14 +22,14 @@ class SiteFeedbackController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $feedbackService->addSiteFeedback($data);
+            $siteFeedbackService->addSiteFeedback($data);
             return $this->redirectToRoute('app_feedback');
         }
 
-        $feedbacks = $feedbackService->getAllSiteFeedback();
+        $siteFeedbacks = $siteFeedbackService->getAllSiteFeedback();
 
         return $this->render('siteFeedback/index.html.twig', [
-            'feedbacks' => $feedbacks,
+            'siteFeedbacks' => $siteFeedbacks,
             'form' => $form->createView(),
             'averageScore' => $averageScore
         ]);
