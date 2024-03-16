@@ -24,4 +24,11 @@ class UserController extends AbstractController
         $userService->deleteFavoriteFilm($id);
         return $this->redirectToRoute('app_user');
     }
+
+    #[Route('/user/review/{id}/delete', name: 'app_user_deleteReview', methods: 'POST')]
+    public function deleteReview(UserService $userService, int $id): Response
+    {
+        $userService->deleteReview($id);
+        return $this->redirectToRoute('app_user');
+    }
 }

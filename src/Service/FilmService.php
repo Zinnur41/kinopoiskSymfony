@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Category;
 use App\Entity\Feedback;
 use App\Entity\Film;
-use App\Entity\Genre;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +14,7 @@ class FilmService
 {
     private $entityManager;
     private $security;
+
     public function __construct(EntityManagerInterface $entityManager, Security $security)
     {
         $this->entityManager = $entityManager;

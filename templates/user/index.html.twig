@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('filmPage.css', 'css') }}">
+    <link rel="stylesheet" href="{{ asset('cardDescription.css', 'css') }}"
 {% endblock %}
 
 {% block body %}
@@ -25,17 +26,40 @@
                     {% if film.category.category == 'films' %}
                         <a href="{{ path('app_film_filmDetails', { id: film.id }) }}" id="read"
                            class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
-                        <form action="{{ path('app_user_deleteFavoriteFilm', {'id': film.id}) }}" method="post" >
-                            <input class="button delete-button link-danger link-offset-2 link-underline link-underline-opacity-0" id="delete" type="submit" value="Убрать из избранного">
+                        <form action="{{ path('app_user_deleteFavoriteFilm', {'id': film.id}) }}" method="post">
+                            <input class="button delete-button link-danger link-offset-2 link-underline link-underline-opacity-0"
+                                   id="delete" type="submit" value="Убрать из избранного">
                         </form>
                     {% else %}
                         <a href="{{ path('app_serial_serialDetails', { id: film.id }) }}" id="read"
                            class="button link-offset-2 link-underline link-underline-opacity-0">Подробнее</a>
-                        <form action="{{ path('app_user_deleteFavoriteFilm', {'id': film.id}) }}" method="post" >
-                            <input class="button delete-button link-danger link-offset-2 link-underline link-underline-opacity-0" id="delete" type="submit" value="Убрать из избранного">
+                        <form action="{{ path('app_user_deleteFavoriteFilm', {'id': film.id}) }}" method="post">
+                            <input class="button delete-button link-danger link-offset-2 link-underline link-underline-opacity-0"
+                                   id="delete" type="submit" value="Убрать из избранного">
                         </form>
                     {% endif %}
                 </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if user.getFeedback is not empty %}
+        <h1>Мои рецензии</h1>
+        <div class="reviews">
+            {% for feedback in user.getFeedback %}
+                <figure class="snip1533">
+                    <figcaption>
+                        <blockquote>
+                            <p>{{ feedback.date | date('d M Y в H:i') }}</p>
+                        </blockquote>
+                        <h3>{{ feedback.film.name }}</h3>
+                        <h4>{{ feedback.comment }}</h4>
+                        <h3 class="score">{{ feedback.score }}/10⭐</h3>
+                    </figcaption>
+                    <form class="deleteFeedback"
+                          action="{{ path('app_user_deleteReview', {'id': feedback.id}) }}" method="post">
+                        <input class="btn btn-outline-danger" type="submit" value="Удалить">
+                    </form>
+                </figure>
             {% endfor %}
         </div>
     {% endif %}

@@ -353,3 +353,7 @@ input {
         background: rgba(109, 109, 109, 0.8);
     }
 }
+
+.myFeedbacks {
+    text-align: center;
+}

@@ -74,7 +74,9 @@
 }
 
 .reviews {
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 h2 {
     text-align: center;
@@ -208,4 +210,12 @@ h2 {
     top: 30px;
     right: 10px;
 }
+
+.deleteFeedback {
+    position: absolute;
+    bottom: 0;
+    right: 34%;
+    padding: 5px;
+}
+
 

@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Feedback;
 use App\Entity\Film;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,6 +76,13 @@ class UserService
         $film = $this->entityManager->getRepository(Film::class)->find($id);
 
         $user->removeFavoriteFilm($film);
+        $this->entityManager->flush();
+    }
+
+    public function deleteReview(int $id): void
+    {
+        $feedback = $this->entityManager->getRepository(Feedback::class)->find($id);
+        $this->entityManager->remove($feedback);
         $this->entityManager->flush();
     }
 }
