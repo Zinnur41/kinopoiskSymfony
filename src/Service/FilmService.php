@@ -80,14 +80,14 @@ class FilmService
 
     public function addSerial(array $data, $image, ArrayCollection $genres): void
     {
-        $film = new Film();
+        $serial = new Film();
         foreach ($genres as $genre) {
-            $film->addGenre($genre);
+            $serial->addGenre($genre);
         }
 
         $category = $this->entityManager->getRepository(Category::class)->find(2); // Категория сериалов
 
-        $this->extracted($film, $data, $category, $image);
+        $this->extracted($serial, $data, $category, $image);
     }
 
     public function updateFilm(Film $film, $image):void
