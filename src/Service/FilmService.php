@@ -90,6 +90,13 @@ class FilmService
         $this->extracted($film, $data, $category, $image);
     }
 
+    public function updateFilm(Film $film, $image):void
+    {
+        $film->setImage($image);
+        $this->entityManager->flush();
+    }
+
+
     public function addFeedback(int $id, array $data): void
     {
         $film = $this->getFilm($id);

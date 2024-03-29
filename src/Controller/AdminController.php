@@ -108,6 +108,39 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/film/{id}/update', name: 'app_admin_updateFilm')]
+    public function updateFilm(FilmService $filmService, int $id, Request $request): Response
+    {
+        $film = $filmService->getFilm($id);
+        $form = $this->createForm(FilmFormType::class, $film);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                $imageName = uniqid() . '.' . $imageFile->guessExtension();
+                if ($film->getCategory()->getCategory() === 'films') {
+                    $imageFile->move(
+                        $this->getParameter('filmImagesDirectory'),
+                        $imageName
+                    );
+                    $filmService->updateFilm($film, $imageName);
+                    return $this->redirectToRoute('app_admin_addFilm');
+                } else {
+                    $imageFile->move(
+                        $this->getParameter('serialImagesDirectory'),
+                        $imageName
+                    );
+                    $filmService->updateFilm($film, $imageName);
+                    return $this->redirectToRoute('app_admin_addSerial');
+                }
+            }
+        }
+        return $this->render('admin/updateFilm.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
     #[Route('/admin/film/{id}/delete', name: 'app_admin_deleteFilm', methods: 'POST')]
     public function deleteFilm(FilmService $film, int $id): Response
     {
