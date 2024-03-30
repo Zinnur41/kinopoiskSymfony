@@ -15,7 +15,7 @@
                 <img src="{{ asset('uploads/films/' ~ film.image, 'images') }}" class="image img-fluid rounded-start"
                      alt="...">
                 {% if is_granted('ROLE_USER') %}
-                    <form action="{{ path('app_film_filmDetails', {'id': film.id}) }}" method="post">
+                    <form action="{{ path('app_film_addFavoriteFilm', {'id': film.id}) }}" method="post">
                         <input type="hidden" name="addFavoriteFilm">
                         <button type="submit" class="favourites glow-on-hover">Добавить в избранное</button>
                     </form>
@@ -58,7 +58,7 @@
             {% endif %}
             {% if is_granted('ROLE_USER') %}
                 <h3>Написать рецензию</h3>
-                <form action="{{ path('app_film_filmDetails', {'id': film.id}) }}" method="post">
+                <form action="{{ path('app_film_addFeedback', {'id': film.id}) }}" method="post">
                     <input type="hidden" name="feedback">
                     <div class="rating-area">
                         {% for i in 10..1 %}
