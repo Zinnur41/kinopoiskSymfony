@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,7 +15,7 @@ class UserController extends AbstractController
     {
         $user = $userService->getActiveUser();
         return $this->render('user/index.html.twig', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -29,6 +30,16 @@ class UserController extends AbstractController
     public function deleteReview(UserService $userService, int $id): Response
     {
         $userService->deleteReview($id);
+        return $this->redirectToRoute('app_user');
+    }
+
+    #[Route('/user/addSubscribe', name: 'app_user_addSubscribe', methods: 'POST')]
+    public function addSubscribe(Request $request, UserService $userService): Response
+    {
+        if ($request->isMethod('POST')) {
+            $days = $request->request->get('days');
+            $userService->addSubscription($days);
+        }
         return $this->redirectToRoute('app_user');
     }
 }

@@ -52,6 +52,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'users')]
     private Collection $favoriteFilms;
 
+    #[ORM\ManyToOne(inversedBy: 'account')]
+    private ?Subscribe $subscribe = null;
+
     public function __construct()
     {
         $this->feedback = new ArrayCollection();
@@ -258,6 +261,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeFavoriteFilm(Film $favoriteFilm): static
     {
         $this->favoriteFilms->removeElement($favoriteFilm);
+
+        return $this;
+    }
+
+    public function getSubscribe(): ?Subscribe
+    {
+        return $this->subscribe;
+    }
+
+    public function setSubscribe(?Subscribe $subscribe): static
+    {
+        $this->subscribe = $subscribe;
 
         return $this;
     }

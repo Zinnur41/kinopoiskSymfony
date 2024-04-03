@@ -9,6 +9,19 @@
 
 {% block body %}
     {% include 'headers/header.html.twig' %}
+    {% if not user.getSubscribe %}
+    <form action="{{ path('app_user_addSubscribe') }}" method="post">
+        <select name="days">
+            <option value="30">30 дней</option>
+            <option value="60">60 дней</option>
+            <option value="90">90 дней</option>
+            <option value="365">1 год</option>
+        </select>
+        <input type="submit" value="Оформить подписку">
+    </form>
+    {% else %}
+        <p>Подписка активирована. Действует до {{ user.getSubscribe.endDate.format('d M Y, H:i') }}</p>
+    {% endif %}
     {% if user.getFavoriteFilms is not empty %}
         <h1>Избранное</h1>
         <div class="wrap">

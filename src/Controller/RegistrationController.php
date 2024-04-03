@@ -18,15 +18,12 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class);
 
         $form->handleRequest($request);
-        if ($request->isXmlHttpRequest()) {
-            if ($form->isSubmitted() && $form->isValid()) {
-                $data = $form->getData();
-                $userService->addUser($data);
-                return new JsonResponse(['success' => true]);
-            }
-            return new JsonResponse(['success' => false]);
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $userService->addUser($data);
+            return $this->redirectToRoute('app_login');
         }
+
         return $this->render('registration/index.html.twig', [
             'form' => $form->createView(),
         ]);

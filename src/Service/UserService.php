@@ -4,7 +4,9 @@ namespace App\Service;
 
 use App\Entity\Feedback;
 use App\Entity\Film;
+use App\Entity\Subscribe;
 use App\Entity\User;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -50,6 +52,7 @@ class UserService
         $user->setSecondName($data['secondName']);
         $user->setThirdName($data['thirdName']);
         $user->setBirthdayDate($data['birthdayDate']);
+        $user->setSubscribe(null);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
@@ -84,5 +87,38 @@ class UserService
         $feedback = $this->entityManager->getRepository(Feedback::class)->find($id);
         $this->entityManager->remove($feedback);
         $this->entityManager->flush();
+    }
+
+    public function addSubscription(int $days): void
+    {
+        $subscribe = new Subscribe();
+        $user = $this->getActiveUser();
+        if (!$user->getSubscribe()) {
+            $subscribe->addAccount($user);
+            date_default_timezone_set('Europe/Moscow');
+            $start_date = new DateTime('now');
+            $subscribe->setStartDate($start_date);
+            $end_date = clone $start_date;
+            $subscribe->setEndDate($end_date->modify("+$days day"));
+            $this->entityManager->persist($subscribe);
+            $this->entityManager->flush();
+        }
+    }
+
+    public function checkSubscription(): void
+    {
+        $user = $this->getActiveUser();
+        $subscribe = $user->getSubscribe();
+
+        if ($subscribe) {
+            date_default_timezone_set('Europe/Moscow');
+            $currentDate = new DateTime('now');
+            $endDate = $subscribe->getEndDate();
+            if ($currentDate > $endDate) {
+                $user->setSubscribe(null);
+                $this->entityManager->remove($subscribe);
+                $this->entityManager->flush();
+            }
+        }
     }
 }
