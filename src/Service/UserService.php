@@ -107,18 +107,19 @@ class UserService
 
     public function checkSubscription(): void
     {
-        $user = $this->getActiveUser();
-        $subscribe = $user->getSubscribe();
-
-        if ($subscribe) {
-            date_default_timezone_set('Europe/Moscow');
-            $currentDate = new DateTime('now');
-            $endDate = $subscribe->getEndDate();
-            if ($currentDate > $endDate) {
-                $user->setSubscribe(null);
+        $subscribes = $this->entityManager->getRepository(Subscribe::class)->findAll();
+        date_default_timezone_set('Europe/Moscow');
+        $currentDate = new DateTime('now');
+        $isActiveSubscribe = false;
+        foreach ($subscribes as $subscribe) {
+            if ($currentDate > $subscribe->getEndDate()) {
                 $this->entityManager->remove($subscribe);
-                $this->entityManager->flush();
+                $subscribe->getAccount()->first()->setSubscribe(null);
+                $isActiveSubscribe = true;
             }
+        }
+        if ($isActiveSubscribe) {
+            $this->entityManager->flush();
         }
     }
 }

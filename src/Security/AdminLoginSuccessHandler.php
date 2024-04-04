@@ -15,13 +15,11 @@ class AdminLoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 {
     private $router;
     private $security;
-    private $userService;
 
-    public function __construct(RouterInterface $router, Security $security, UserService $userService)
+    public function __construct(RouterInterface $router, Security $security)
     {
         $this->router = $router;
         $this->security = $security;
-        $this->userService = $userService;
     }
 
 
@@ -30,7 +28,6 @@ class AdminLoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return new RedirectResponse($this->router->generate('app_admin_getUsers'));
         }
-        $this->userService->checkSubscription();
         return new RedirectResponse($this->router->generate('app_index'));
     }
 }
