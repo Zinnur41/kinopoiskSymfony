@@ -42,4 +42,11 @@ class UserController extends AbstractController
         }
         return $this->redirectToRoute('app_user');
     }
+
+    #[Route('/user/deleteSubscribe', name: 'app_user_deleteSubscribe', methods: 'POST')]
+    public function deleteSubscribe(UserService $userService): Response
+    {
+        $userService->deleteSubscription();
+        return $this->redirectToRoute('app_user');
+    }
 }

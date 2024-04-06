@@ -122,4 +122,13 @@ class UserService
             $this->entityManager->flush();
         }
     }
+
+    public function deleteSubscription(): void
+    {
+        $user = $this->getActiveUser();
+        $subscribe = $user->getSubscribe();
+        $user->setSubscribe(null);
+        $this->entityManager->remove($subscribe);
+        $this->entityManager->flush();
+    }
 }
