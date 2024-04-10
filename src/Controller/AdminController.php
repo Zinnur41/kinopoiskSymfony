@@ -169,7 +169,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/siteFeedback/delete/{id}')]
+    #[Route('/admin/siteFeedback/delete/{id}', methods: 'POST')]
     public function deleteSiteFeedback(SiteFeedbackService $feedbackService, int $id): Response
     {
         $feedbackService->deleteSiteFeedback($id);
