@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
+use App\Service\MailerService;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/registration', name: 'app_registration')]
-    public function index(Request $request, UserService $userService, MailerInterface $mailer): Response
+    public function index(Request $request, UserService $userService, MailerService $mailer): Response
     {
         $form = $this->createForm(RegistrationFormType::class);
 
@@ -23,12 +24,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             try {
-                $email = (new Email())
-                    ->from('zagidullin_zin@mail.ru')
-                    ->to($data['email'])
-                    ->subject('Подтверждение регистрации')
-                    ->text('Ваш код для создания аккаунта: ' . rand(1000, 9999));
-                $mailer->send($email);
+                $mailer->sendMail($form->get('email')->getData());
                 $userService->addUser($data);
             } catch (TransportExceptionInterface) {
                 return $this->redirectToRoute('app_registration');
