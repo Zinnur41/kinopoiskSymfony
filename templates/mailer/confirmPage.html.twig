@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Подтверждение аккаунта {% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+    <h1>Мы отправили на указанную почту код для подтверждения регистрации. Введите его в поле ниже</h1>
+
+    <form action="{{ path('app_registration_userConfirmation') }}" method="post">
+        <input type="text" name="userCode">
+        <input type="submit" value="Подтвердить">
+    </form>
+{% endblock %}

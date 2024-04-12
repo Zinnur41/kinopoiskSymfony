@@ -9,6 +9,7 @@
 
 {% block body %}
     {% include 'headers/header.html.twig' %}
+    {{ confirmFailed is defined ? confirmFailed : '' }}
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>

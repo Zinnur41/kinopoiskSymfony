@@ -16,7 +16,7 @@ class MailerService
         $this->mailer = $mailer;
     }
 
-    public function sendMail(string $sendTo): void
+    public function sendMail(string $sendTo, $code): void
     {
         $email = (new TemplatedEmail())
             ->from(new Address('zagidullin_zin@mail.ru', 'Kinopoisk'))
@@ -24,7 +24,8 @@ class MailerService
             ->subject('Подтверждение регистрации')
             ->htmlTemplate('mailer/confirmation.html.twig')
             ->context([
-                'username' => $sendTo
+                'username' => $sendTo,
+                'code' => $code
             ]);
         $this->mailer->send($email);
     }
