@@ -16,7 +16,7 @@ class MailerService
         $this->mailer = $mailer;
     }
 
-    public function sendMail(string $sendTo, $code): void
+    public function sendMail(string $sendTo, int $code): void
     {
         $email = (new TemplatedEmail())
             ->from(new Address('zagidullin_zin@mail.ru', 'Kinopoisk'))

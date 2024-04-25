@@ -26,7 +26,7 @@ class RegistrationController extends AbstractController
                 setcookie('emailCode', $code);
                 setcookie('formData', serialize($data));
                 $mailer->sendMail($form->get('email')->getData(), $code);
-                return $this->render('mailer/confirmPage.html.twig');
+                return $this->redirectToRoute('app_registration_userConfirmation');
             } catch (TransportExceptionInterface) {
                 return $this->redirectToRoute('app_registration');
             }
@@ -46,9 +46,9 @@ class RegistrationController extends AbstractController
             $userCode = $request->request->get('userCode');
             $isConfirm = false;
             if ($emailCode !== $userCode) {
-                $this->redirectToRoute('app_registration', [
-                    'confirmFailed' => 'Код подтверждения неверный!'
-                ]);
+                setcookie('emailCode', '', time() - 3600);
+                setcookie('formData', '', time() - 3600);
+                $this->redirectToRoute('app_registration');
             } else {
                 $data = unserialize($_COOKIE['formData']);
                 $userService->addUser($data);
