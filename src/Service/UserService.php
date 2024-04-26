@@ -58,6 +58,12 @@ class UserService
         $this->entityManager->flush();
     }
 
+    public function updateUser(User $user, $photo): void
+    {
+        $user->setPhoto($photo);
+        $this->entityManager->flush();
+    }
+
     public function deleteUser(int $id): void
     {
         $user = $this->entityManager->getRepository(User::class)->find($id);

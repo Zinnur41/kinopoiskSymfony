@@ -6,6 +6,7 @@
 parameters:
     filmImagesDirectory: '%kernel.project_dir%/public/assets/images/uploads/films'
     serialImagesDirectory: '%kernel.project_dir%/public/assets/images/uploads/serials'
+    userPhotosDirectory: '%kernel.project_dir%/public/assets/images/userPhotos'
 
 services:
     # default configuration for services in *this* file

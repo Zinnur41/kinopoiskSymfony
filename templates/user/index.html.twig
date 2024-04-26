@@ -11,6 +11,11 @@
 
 {% block body %}
     {% include 'headers/header.html.twig' %}
+    <a href="{{ path('app_user_updateUser') }}">Редактировать профиль</a>
+    <img width="70px" src="{{ asset('userPhotos/' ~ user.getPhoto, 'images') }}">
+    {% if not user.getPhoto %}
+        <p>Заполните профиль полностью, добавьте фото!</p>
+    {% endif %}
     <div class="subscription">
         {% if not user.getSubscribe %}
             <form action="{{ path('app_user_addSubscribe') }}" method="post">

@@ -90,7 +90,7 @@ class FilmService
         $this->extracted($serial, $data, $category, $image);
     }
 
-    public function updateFilm(Film $film, $image):void
+    public function updateFilm(Film $film, $image): void
     {
         $film->setImage($image);
         $this->entityManager->flush();

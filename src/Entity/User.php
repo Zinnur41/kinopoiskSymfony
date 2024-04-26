@@ -56,6 +56,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'account')]
     private ?Subscribe $subscribe = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
+
     public function __construct()
     {
         $this->feedback = new ArrayCollection();
@@ -274,6 +277,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSubscribe(?Subscribe $subscribe): static
     {
         $this->subscribe = $subscribe;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): static
+    {
+        $this->photo = $photo;
 
         return $this;
     }

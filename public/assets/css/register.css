@@ -38,12 +38,12 @@
     bottom: -380px;
 }
 form{
-    height: 970px;
-    width: 400px;
+    height: 1100px;
+    width: 440px;
     background-color: rgba(0, 0, 0, 0.85);
     position: absolute;
     transform: translate(-50%,-50%);
-    top: 90%;
+    top: 100%;
     z-index: 900;
     left: 50%;
     border-radius: 10px;
