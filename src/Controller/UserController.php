@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
+use App\Form\UpdateUserFormType;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +57,7 @@ class UserController extends AbstractController
     public function updateUser(UserService $userService, Request $request): Response
     {
         $user = $userService->getActiveUser();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(UpdateUserFormType::class, $user);
 
         $form->handleRequest($request);
 
@@ -69,6 +70,9 @@ class UserController extends AbstractController
                     $photoPath
                 );
                 $userService->updateUser($user, $photoPath);
+                return $this->redirectToRoute('app_user');
+            } else {
+                $userService->updateUser($user);
                 return $this->redirectToRoute('app_user');
             }
         }

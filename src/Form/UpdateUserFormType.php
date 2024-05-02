@@ -15,9 +15,9 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
-class RegistrationFormType extends AbstractType
+class UpdateUserFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('firstName', TextType::class, [
@@ -59,20 +59,28 @@ class RegistrationFormType extends AbstractType
                     new NotBlank(),
                 ]
             ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Пароль',
-                'attr' => [
-                    'placeholder' => 'Пароль'
-                ],
-                'constraints' => [
-                    new NotBlank(),
-                ]
-            ])
             ->add('birthdayDate', BirthdayType::class, [
                 'label' => 'Дата рождения',
             ])
+            ->add('photo', FileType::class, [
+                'label' => 'Фото',
+                'data_class' => null,
+                'required' => false,
+                'empty_data' => '',
+                'constraints' => [
+                    new File([
+                        'maxSize' => '4M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp'
+                        ],
+                        'mimeTypesMessage' => 'Пожалуйста, загрузите изображение в формате JPEG, PNG',
+                    ])
+                ]
+            ])
             ->add("submit", SubmitType::class, [
-                'label' => 'Зарегистрироваться',
+                'label' => 'Редактировать',
                 'attr' => [
                     'class' => 'submit text-white',
                 ],

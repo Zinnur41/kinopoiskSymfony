@@ -26,8 +26,7 @@ class MailerService
             ->context([
                 'username' => $sendTo,
                 'code' => $code
-            ])
-            ->getHeaders()->addTextHeader('X-Auto-Response-Suppress', 'OOF, DR, RN, NRN, AutoReply');
+            ]);
         $this->mailer->send($email);
     }
 }
