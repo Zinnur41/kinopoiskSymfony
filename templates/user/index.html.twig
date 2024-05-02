@@ -72,9 +72,19 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
+
+                            <div class="row" style="display: inline-block">
                                 <div class="col-sm-12">
-                                    <a href="{{ path('app_user_updateUser') }}" class="btn btn-success">Редактировать</a>
+                                    <a href="{{ path('app_user_updateUser') }}"
+                                       class="btn btn-success">Редактировать</a>
+                                </div>
+                            </div>
+                            <div class="row" style="display: inline-block">
+                                <div class="col-sm-12">
+                                    <form action="{{ path('app_user_deleteAccount', {'id': user.id}) }}"
+                                          method="post">
+                                        <button type="submit" class="btn btn-danger">Удалить акканут</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-use App\Form\RegistrationFormType;
 use App\Form\UpdateUserFormType;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/user')]
@@ -79,5 +79,14 @@ class UserController extends AbstractController
         return $this->render('user/update.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'app_user_deleteAccount', methods: 'POST')]
+    public function deleteAccount(int $id, UserService $userService)
+    {
+        $session = new Session();
+        $session->invalidate();
+        $userService->deleteUser($id);
+        return $this->redirectToRoute('app_index');
     }
 }
