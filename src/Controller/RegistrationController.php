@@ -44,22 +44,17 @@ class RegistrationController extends AbstractController
         } else {
             $emailCode = $_COOKIE['emailCode'];
             $userCode = $request->request->get('userCode');
-            $isConfirm = false;
+
             if ($emailCode !== $userCode) {
                 setcookie('emailCode', '', time() - 3600);
                 setcookie('formData', '', time() - 3600);
-                $this->redirectToRoute('app_registration');
+                return $this->redirectToRoute('app_registration');
             } else {
                 $data = unserialize($_COOKIE['formData']);
                 $userService->addUser($data);
-                $isConfirm = true;
-            }
-            if ($isConfirm) {
                 setcookie('emailCode', '', time() - 3600);
                 setcookie('formData', '', time() - 3600);
                 return $this->redirectToRoute('app_login');
-            } else {
-                return $this->redirectToRoute('app_registration');
             }
         }
     }
