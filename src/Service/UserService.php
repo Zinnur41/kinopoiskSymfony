@@ -58,8 +58,15 @@ class UserService
         $this->entityManager->flush();
     }
 
-    public function updateUser(User $user, $photo = null): void
+    /*public function updateUser(User $user, $photo = null): void
     {
+        $user->setPhoto($photo);
+        $this->entityManager->flush();
+    }*/
+
+    public function setPhoto($photo): void
+    {
+        $user = $this->getActiveUser();
         $user->setPhoto($photo);
         $this->entityManager->flush();
     }

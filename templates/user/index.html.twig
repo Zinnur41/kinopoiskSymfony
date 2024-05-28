@@ -75,8 +75,10 @@
 
                             <div class="row" style="display: inline-block">
                                 <div class="col-sm-12">
-                                    <a href="{{ path('app_user_updateUser') }}"
-                                       class="btn btn-success">Редактировать</a>
+                                    <form action="{{ path('app_user_setUserPhoto') }}" method="post" enctype="multipart/form-data">
+                                        <input type="file" name="photo">
+                                        <input type="submit" class="btn btn-success" value="Добавить фото">
+                                    </form>
                                 </div>
                             </div>
                             <div class="row" style="display: inline-block">
@@ -143,6 +145,7 @@
             {% endfor %}
         </div>
     {% endif %}
+
     {% block javascripts %}
         <script src="{{ asset('subscribe.js', 'js') }}"></script>
     {% endblock %}

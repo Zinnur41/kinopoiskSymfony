@@ -53,7 +53,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user');
     }
 
-    #[Route('/update', name: 'app_user_updateUser')]
+   /* #[Route('/update', name: 'app_user_updateUser')]
     public function updateUser(UserService $userService, Request $request): Response
     {
         $user = $userService->getActiveUser();
@@ -79,10 +79,26 @@ class UserController extends AbstractController
         return $this->render('user/update.html.twig', [
             'form' => $form->createView()
         ]);
+    }*/
+
+    #[Route('/photo', name: 'app_user_setUserPhoto', methods: 'POST')]
+    public function setUserPhoto(Request $request, UserService $userService): Response
+    {
+        $photo = $request->files->get('photo');
+        if ($photo) {
+            $photoPath = uniqid() . '.' . $photo->guessExtension();
+            $photo->move(
+                $this->getParameter('userPhotosDirectory'),
+                $photoPath
+            );
+            $userService->setPhoto($photoPath);
+        }
+        return $this->redirectToRoute('app_user');
+
     }
 
     #[Route('/delete/{id}', name: 'app_user_deleteAccount', methods: 'POST')]
-    public function deleteAccount(int $id, UserService $userService)
+    public function deleteAccount(int $id, UserService $userService): Response
     {
         $session = new Session();
         $session->invalidate();
